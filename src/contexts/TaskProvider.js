@@ -13,7 +13,7 @@ export const TaskProvider = (props) => {
     }, []);
 
     function getTasks() {
-        axios.get(baseUrl)
+        return axios.get(baseUrl)
             .then(response => {
                 setTasks(response.data);
             })
@@ -23,9 +23,9 @@ export const TaskProvider = (props) => {
     }
 
     function addTask(newTask) {
-        axios.post(baseUrl, { title: newTask, completed: false })
+        return axios.post(baseUrl, { title: newTask, completed: false })
             .then(response => {
-                setTasks([...tasks, response.data]);
+                setTasks([...tasks, response.data]); // spread operator to create new array with new task added
             })
             .catch(error => {
                 console.log(error);
@@ -33,14 +33,25 @@ export const TaskProvider = (props) => {
     }
 
     function updateTask(task) {
-        axios.put(`${apiUrl}/${task.TaskId}`, task)
+        return axios.put(`${baseUrl}/${task.taskId}`, task)
             .then(response => {
-                const updatedTasks = tasks.map(t => {
-                    if (t.TaskId === task.TaskId) {
+                const updatedTasks = tasks.map(t => { // map to return new array based on the updated task status
+                    if (t.taskId === task.taskId) {
                         return response.data;
                     }
                     return t;
                 });
+                setTasks(updatedTasks); // updates the local state of task statuses
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    function deleteTask(taskId) {
+        axios.delete(`${baseUrl}/${taskId}`)
+            .then(response => {
+                const updatedTasks = tasks.filter(t => t.TaskId !== taskId);
                 setTasks(updatedTasks);
             })
             .catch(error => {
