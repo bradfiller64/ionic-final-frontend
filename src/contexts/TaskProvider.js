@@ -51,7 +51,7 @@ export const TaskProvider = (props) => {
     function deleteTask(taskId) {
         axios.delete(`${baseUrl}/${taskId}`)
             .then(response => {
-                const updatedTasks = tasks.filter(t => t.TaskId !== taskId);
+                const updatedTasks = tasks.filter(t => t.taskId !== taskId);
                 setTasks(updatedTasks);
             })
             .catch(error => {
@@ -59,14 +59,9 @@ export const TaskProvider = (props) => {
             });
     }
 
-    const incompleteTasks = tasks.filter(task => !task.completed);
-    const completedTasks = tasks.filter(task => task.completed);
-
     return (
         <TaskContext.Provider value={{
             tasks,
-            incompleteTasks,
-            completedTasks,
             getTasks,
             addTask,
             updateTask,
