@@ -37,11 +37,11 @@ export const TaskProvider = (props) => {
             .then(response => {
                 const updatedTasks = tasks.map(t => { // map to return new array based on the updated task status
                     if (t.taskId === task.taskId) {
-                        return response.data;
+                        return response.data; // matches 'id' with 'completed' for changed task
                     }
-                    return t;
+                    return t; // returns updated task
                 });
-                setTasks(updatedTasks); // updates the local state of task statuses
+                setTasks(updatedTasks); // updates the local state of tasks
             })
             .catch(error => {
                 console.log(error);
@@ -58,4 +58,21 @@ export const TaskProvider = (props) => {
                 console.log(error);
             });
     }
+
+    const incompleteTasks = tasks.filter(task => !task.completed);
+    const completedTasks = tasks.filter(task => task.completed);
+
+    return (
+        <TaskContext.Provider value={{
+            tasks,
+            incompleteTasks,
+            completedTasks,
+            getTasks,
+            addTask,
+            updateTask,
+            deleteTask
+        }}>
+            {props.children}
+        </TaskContext.Provider>
+    );
 };
