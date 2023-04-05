@@ -19,7 +19,7 @@ const TaskList: React.FC = () => {
       .then(() => { })
       .catch((error: any) => {
         console.log(error);
-      }); 1
+      });
   };
 
   const slideToDelete = (taskId: any) => {
@@ -113,7 +113,7 @@ const TaskList: React.FC = () => {
                         </IonItem>
                         <IonItemOptions side="end">
                           <IonItemOption
-                            onClick={() => slideToDelete(task.id)}
+                            onClick={() => slideToDelete(task.taskId)}
                             color="danger"
                           >
                             <IonIcon slot="icon-only" icon={trash}></IonIcon>
