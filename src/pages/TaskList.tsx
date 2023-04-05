@@ -1,4 +1,5 @@
-import { IonButton, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { IonCheckbox, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, } from '@ionic/react';
+import { trash } from 'ionicons/icons';
 import { useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
 
@@ -42,7 +43,7 @@ const TaskList: React.FC = () => {
                     Incomplete
                   </IonLabel>
                 </IonListHeader>
-                {task.map((task: any) => {
+                {tasks.map((task: any) => {
                   if (task.completed === false) {
                     return (
                       <IonItemSliding>
@@ -80,7 +81,7 @@ const TaskList: React.FC = () => {
                     Complete
                   </IonLabel>
                 </IonListHeader>
-                {task.map((task: any) => {
+                {tasks.map((task: any) => {
                   if (task.completed === true) {
                     return (
                       <IonItemSliding>
