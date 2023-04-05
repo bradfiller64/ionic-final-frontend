@@ -1,7 +1,7 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
 import { useContext } from "react";
 import TaskContext from "../contexts/TaskContext";
-import TaskList from "../pages/TaskList";
+import TaskList from "../components/TaskList";
 
 const AddButton: React.FC = () => {
   const [presentAlert] = useIonAlert();
