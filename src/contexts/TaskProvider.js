@@ -5,7 +5,7 @@ import TaskContext from "./TaskContext";
 
 export const TaskProvider = (props) => {
 
-    const [tasks, setTasks] = useState([]);
+    const [task, setTasks] = useState([]);
     const baseUrl = "http://localhost:3001/api/tasks/";
 
     useEffect(() => {
@@ -26,7 +26,7 @@ export const TaskProvider = (props) => {
     }
 
     function getTask(taskId) {
-        return axios.get(baseUrl + id).then((response) => {
+        return axios.get(baseUrl + taskId).then((response) => {
             return new Promise((resolve) => resolve(response.data));
         })
             .catch(error => {
@@ -34,7 +34,7 @@ export const TaskProvider = (props) => {
             });
     }
 
-    function addTask(newTask) {
+    function addTask(task) {
         return axios.post(baseUrl, task).then((response) => {
             getAllTasks();
             return new Promise((resolve) => resolve(response.data))
@@ -44,8 +44,8 @@ export const TaskProvider = (props) => {
         })
     }
 
-    function updateTask(id, task) {
-        return axios.put(baseUrl + id, task).then(response => {
+    function updateTask(taskId, task) {
+        return axios.put(baseUrl + taskId, task).then(response => {
             getAllTasks();
             return new Promise((resolve) => resolve(response.data))
                 .catch(error => {
@@ -66,7 +66,7 @@ export const TaskProvider = (props) => {
 
     return (
         <TaskContext.Provider value={{
-            tasks,
+            task,
             getTask,
             addTask,
             updateTask,

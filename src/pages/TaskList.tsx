@@ -1,13 +1,13 @@
-import { IonCheckbox, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, } from '@ionic/react';
+import { IonCheckbox, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, } from '@ionic/react';
 import { trash } from 'ionicons/icons';
 import { useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
 
 const TaskList: React.FC = () => {
-  const { tasks, updateTask, deleteTask } = useContext(TaskContext);
+  const { addTask, updateTask, deleteTask } = useContext(TaskContext);
 
   const taskComplete = (task: any) => {
-    updateTask(task.id, { title: task.title, completed: true })
+    updateTask(task.taskId, { title: task.title, completed: true })
       .then(() => { })
       .catch((error: any) => {
         console.log(error);
@@ -15,35 +15,53 @@ const TaskList: React.FC = () => {
   };
 
   const taskIncomplete = (task: any) => {
-    updateTask(task.id, { title: task.title, completed: false })
+    updateTask(task.taskId, { title: task.title, completed: false })
+      .then(() => { })
+      .catch((error: any) => {
+        console.log(error);
+      }); 1
+  };
+
+  const slideToDelete = (taskId: any) => {
+    deleteTask(taskId)
       .then(() => { })
       .catch((error: any) => {
         console.log(error);
       });
   };
 
-  const slideToDelete = (id: any) => {
-    deleteTask(id)
-      .then(() => { })
-      .catch((error: any) => {
-        console.log(error);
-      });
-  };
+  // const handleAddTask = () => {
+  //   setShowPrompt(true);
+  // }
+
+  // const handlePromptSubmit = () => {
+  //   addTask({ title: '', completed: false })
+  //     .then(() => {
+  //       setShowPrompt(false);
+  //       setNewTaskName("");
+  //     })
+  //     .catch((error: any) => {
+  //       console.log(error);
+  //     });
+  // }
 
 
   return (
     <div>
       <div>
+        <IonHeader>
+          <IonLabel>Link's To-Do List</IonLabel>
+        </IonHeader>
         <TaskContext.Consumer>
           {({ task }) => {
             return (
-              <IonList key={task.id}>
+              <IonList key={task.taskId}>
                 <IonListHeader color="warning">
                   <IonLabel color="light" className="ion-margin">
                     Incomplete
                   </IonLabel>
                 </IonListHeader>
-                {tasks.map((task: any) => {
+                {task.map((task: any) => {
                   if (task.completed === false) {
                     return (
                       <IonItemSliding>
@@ -56,7 +74,7 @@ const TaskList: React.FC = () => {
                         </IonItem>
                         <IonItemOptions side="end">
                           <IonItemOption
-                            onClick={() => slideToDelete(task.id)}
+                            onClick={() => slideToDelete(task.taskId)}
                             color="danger"
                           >
                             <IonIcon slot="icon-only" icon={trash}></IonIcon>
@@ -75,13 +93,13 @@ const TaskList: React.FC = () => {
         <TaskContext.Consumer>
           {({ task }) => {
             return (
-              <IonList key={task.id}>
+              <IonList key={task.taskId}>
                 <IonListHeader color="success">
                   <IonLabel color="light" className="ion-margin">
                     Complete
                   </IonLabel>
                 </IonListHeader>
-                {tasks.map((task: any) => {
+                {task.map((task: any) => {
                   if (task.completed === true) {
                     return (
                       <IonItemSliding>
