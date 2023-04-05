@@ -1,7 +1,6 @@
-import { IonButton, IonCheckbox, IonContent, IonHeader, IonInput, IonItem, IonItemOptions, IonItemSliding, IonLabel, IonList, IonPage, IonTitle, IonToolbar } from '@ionic/react';
-import { useState, useContext } from 'react';
+import { IonButton, IonCheckbox, IonContent, IonHeader, IonIcon, IonInput, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, IonPage, IonTitle, IonToolbar } from '@ionic/react';
+import { useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
-import { TaskProvider } from '../contexts/TaskProvider';
 
 const TaskList: React.FC = () => {
   const { tasks, updateTask, deleteTask } = useContext(TaskContext);
@@ -32,55 +31,86 @@ const TaskList: React.FC = () => {
 
 
   return (
-    <IonPage>
-      <TaskProvider>
-        <IonHeader>
-          <IonToolbar>
-            <IonTitle>Link's To-Do List:</IonTitle>
-          </IonToolbar>
-        </IonHeader>
-        <IonContent>
-          <IonList>
-            <div>
-              {tasks.filter((task: { completed: any; }) => !task.completed).map((task: TaskProps) => (
-                <IonItemSliding key={task.taskId}>
-                  <IonItem>
-                    <IonLabel>{task.title}</IonLabel>
-                    <IonCheckbox slot="end" checked={task.completed} onIonChange={() => handleTaskCheckboxChange(task)} />
-                  </IonItem>
-                  <IonItemOptions side="end">
-                    <IonButton color="danger" onClick={() => handleDeleteTask(task.taskId)}>Delete</IonButton>
-                  </IonItemOptions>
-                </IonItemSliding>
-              ))}
-            </div>
-          </IonList>
-          <IonButton onClick={() => setShowAddTaskDialog(true)}>Add Task</IonButton>
-          <IonList>
-            <div>
-              {tasks.filter((task: { completed: any; }) => !task.completed).map((task: TaskProps) => (
-                <IonItemSliding key={task.taskId}>
-                  <IonItem>
-                    <IonLabel>{task.title}</IonLabel>
-                    <IonCheckbox slot="end" checked={task.completed} onIonChange={() => handleTaskCheckboxChange(task)} />
-                  </IonItem>
-                  <IonItemOptions side="end">
-                    <IonButton color="danger" onClick={() => handleDeleteTask(task.taskId)}>Delete</IonButton>
-                  </IonItemOptions>
-                </IonItemSliding>
-              ))}
-            </div>
-          </IonList>
-          <IonInput
-            placeholder="New task name"
-            value={newTaskName}
-            onIonChange={(e) => setNewTaskName(e.detail.value as string)}
-          />
-          <IonButton onClick={() => handleAddTask()}>Add</IonButton>
-        </IonContent>
-      </TaskProvider>
-    </IonPage>
+    <div>
+      <div>
+        <TaskContext.Consumer>
+          {({ task }) => {
+            return (
+              <IonList key={task.id}>
+                <IonListHeader color="warning">
+                  <IonLabel color="light" className="ion-margin">
+                    Incomplete
+                  </IonLabel>
+                </IonListHeader>
+                {task.map((task: any) => {
+                  if (task.completed === false) {
+                    return (
+                      <IonItemSliding>
+                        <IonItem>
+                          <IonLabel>{task.title}</IonLabel>
+                          <IonCheckbox
+                            onIonChange={() => taskComplete(task)}
+                            slot="start"
+                          ></IonCheckbox>
+                        </IonItem>
+                        <IonItemOptions side="end">
+                          <IonItemOption
+                            onClick={() => slideToDelete(task.id)}
+                            color="danger"
+                          >
+                            <IonIcon slot="icon-only" icon={trash}></IonIcon>
+                          </IonItemOption>
+                        </IonItemOptions>
+                      </IonItemSliding>
+                    );
+                  }
+                })}
+              </IonList>
+            );
+          }}
+        </TaskContext.Consumer>
+      </div>
+      <div>
+        <TaskContext.Consumer>
+          {({ task }) => {
+            return (
+              <IonList key={task.id}>
+                <IonListHeader color="success">
+                  <IonLabel color="light" className="ion-margin">
+                    Complete
+                  </IonLabel>
+                </IonListHeader>
+                {task.map((task: any) => {
+                  if (task.completed === true) {
+                    return (
+                      <IonItemSliding>
+                        <IonItem>
+                          <IonLabel>{task.title}</IonLabel>
+                          <IonCheckbox
+                            onIonChange={() => taskIncomplete(task)}
+                            checked={true}
+                            slot="start"
+                          ></IonCheckbox>
+                        </IonItem>
+                        <IonItemOptions side="end">
+                          <IonItemOption
+                            onClick={() => slideToDelete(task.id)}
+                            color="danger"
+                          >
+                            <IonIcon slot="icon-only" icon={trash}></IonIcon>
+                          </IonItemOption>
+                        </IonItemOptions>
+                      </IonItemSliding>
+                    );
+                  }
+                })}
+              </IonList>
+            );
+          }}
+        </TaskContext.Consumer>
+      </div>
+    </div>
   );
-};
+}
 
 export default TaskList;

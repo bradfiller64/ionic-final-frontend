@@ -54,7 +54,7 @@ export const TaskProvider = (props) => {
         })
     }
 
-    function deleteTask(taskId) {
+    function deleteTask(id) {
         return axios.delete(baseUrl + id).then(response => {
             getAllTasks();
             return new Promise((resolve) => resolve(response.data))
