@@ -26,50 +26,42 @@ export const TaskProvider = (props) => {
     }
 
     function getTask(taskId) {
-        return axios.get(`${baseUrl}/${taskId}`)
-            .then(response => {
-                setTasks(response.data);
-            })
+        return axios.get(baseUrl + id).then((response) => {
+            return new Promise((resolve) => resolve(response.data));
+        })
             .catch(error => {
                 console.log(error);
             });
     }
 
     function addTask(newTask) {
-        return axios.post(baseUrl, { title: newTask, completed: false })
-            .then(response => {
-                setTasks([...tasks, response.data]); // spread operator to create new array with new task added
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        return axios.post(baseUrl, task).then((response) => {
+            getAllTasks();
+            return new Promise((resolve) => resolve(response.data))
+                .catch(error => {
+                    console.log(error);
+                });
+        })
     }
 
-    function updateTask(task) {
-        return axios.put(`${baseUrl}/${task.taskId}`, task)
-            .then(response => {
-                const updatedTasks = tasks.map(t => { // map to return new array based on the updated task status
-                    if (t.taskId === task.taskId) {
-                        return response.data; // matches 'id' with 'completed' for changed task
-                    }
-                    return t; // returns updated task
+    function updateTask(id, task) {
+        return axios.put(baseUrl + id, task).then(response => {
+            getAllTasks();
+            return new Promise((resolve) => resolve(response.data))
+                .catch(error => {
+                    console.log(error);
                 });
-                setTasks(updatedTasks); // updates the local state of tasks
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        })
     }
 
     function deleteTask(taskId) {
-        axios.delete(`${baseUrl}/${taskId}`)
-            .then(response => {
-                const updatedTasks = tasks.filter(t => t.taskId !== taskId);
-                setTasks(updatedTasks);
-            })
-            .catch(error => {
-                console.log(error);
-            });
+        return axios.delete(baseUrl + id).then(response => {
+            getAllTasks();
+            return new Promise((resolve) => resolve(response.data))
+                .catch(error => {
+                    console.log(error);
+                });
+        })
     }
 
     return (

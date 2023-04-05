@@ -4,22 +4,30 @@ import TaskContext from '../contexts/TaskContext';
 import { TaskProvider } from '../contexts/TaskProvider';
 
 const TaskList: React.FC = () => {
-  const { tasks, addTask, updateTask, deleteTask } = useContext(TaskContext);
-  const [showAddTaskDialog, setShowAddTaskDialog] = useState(false);
-  const [newTaskName, setNewTaskName] = useState('');
+  const { tasks, updateTask, deleteTask } = useContext(TaskContext);
 
-  const handleTaskCheckboxChange = (task: TaskProps) => {
-    task.changeTask(task.taskId, { completed: !task.completed });
+  const taskComplete = (task: any) => {
+    updateTask(task.id, { title: task.title, completed: true })
+      .then(() => { })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
-  const handleDeleteTask = (taskId: number) => {
-    deleteTask(taskId);
+  const taskIncomplete = (task: any) => {
+    updateTask(task.id, { title: task.title, completed: false })
+      .then(() => { })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
-  const handleAddTask = () => {
-    addTask(newTaskName);
-    setShowAddTaskDialog(false);
-    setNewTaskName('');
+  const slideToDelete = (id: any) => {
+    deleteTask(id)
+      .then(() => { })
+      .catch((error: any) => {
+        console.log(error);
+      });
   };
 
 
