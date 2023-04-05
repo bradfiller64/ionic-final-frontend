@@ -3,26 +3,13 @@ import { useState, useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
 import { TaskProvider } from '../contexts/TaskProvider';
 
-interface Task {
-  taskId: number;
-  title: string;
-  completed: boolean;
-}
-
-const TaskList = () => {
+const TaskList: React.FC = () => {
   const { tasks, addTask, updateTask, deleteTask } = useContext(TaskContext);
   const [showAddTaskDialog, setShowAddTaskDialog] = useState(false);
   const [newTaskName, setNewTaskName] = useState('');
 
-  const handleTaskCheckboxChange = (task: Task) => {
-    const updatedTasks = tasks.map((t: Task) => {
-      if (t.taskId === task.taskId) {
-        return { ...t, completed: !t.completed };
-      } else {
-        return t;
-      }
-    });
-    updateTask(updatedTasks);
+  const handleTaskCheckboxChange = (task: TaskProps) => {
+    task.changeTask(task.taskId, { completed: !task.completed });
   };
 
   const handleDeleteTask = (taskId: number) => {
@@ -47,7 +34,7 @@ const TaskList = () => {
         <IonContent>
           <IonList>
             <div>
-              {tasks.filter((task: Task) => !task.completed).map((task: Task) => (
+              {tasks.filter((task: { completed: any; }) => !task.completed).map((task: TaskProps) => (
                 <IonItemSliding key={task.taskId}>
                   <IonItem>
                     <IonLabel>{task.title}</IonLabel>
@@ -63,7 +50,7 @@ const TaskList = () => {
           <IonButton onClick={() => setShowAddTaskDialog(true)}>Add Task</IonButton>
           <IonList>
             <div>
-              {tasks.filter((task: Task) => task.completed).map((task: Task) => (
+              {tasks.filter((task: { completed: any; }) => !task.completed).map((task: TaskProps) => (
                 <IonItemSliding key={task.taskId}>
                   <IonItem>
                     <IonLabel>{task.title}</IonLabel>

@@ -6,14 +6,27 @@ import TaskContext from "./TaskContext";
 export const TaskProvider = (props) => {
 
     const [tasks, setTasks] = useState([]);
-    const baseUrl = "http://localhost:3000/api/tasks/";
+    const baseUrl = "http://localhost:3001/api/tasks/";
 
     useEffect(() => {
-        getTasks();
+        async function fetchData() {
+            await getAllTasks();
+        }
+        fetchData();
     }, []);
 
-    function getTasks() {
+    function getAllTasks() {
         return axios.get(baseUrl)
+            .then(response => {
+                setTasks(response.data);
+            })
+            .catch(error => {
+                console.log(error);
+            });
+    }
+
+    function getTask(taskId) {
+        return axios.get(`${baseUrl}/${taskId}`)
             .then(response => {
                 setTasks(response.data);
             })
@@ -62,7 +75,7 @@ export const TaskProvider = (props) => {
     return (
         <TaskContext.Provider value={{
             tasks,
-            getTasks,
+            getTask,
             addTask,
             updateTask,
             deleteTask

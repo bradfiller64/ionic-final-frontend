@@ -5,6 +5,7 @@ import { IonReactRouter } from '@ionic/react-router';
 import TaskList from './pages/TaskList';
 
 
+
 /* Core CSS required for Ionic components to work properly */
 import '@ionic/react/css/core.css';
 
@@ -27,6 +28,7 @@ import './theme/variables.css';
 setupIonicReact();
 
 const App: React.FC = () => (
+
   <IonApp>
     <IonReactRouter>
       <IonRouterOutlet>
