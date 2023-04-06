@@ -48,7 +48,7 @@ const TaskList: React.FC = () => {
                   if (task.completed === false) {
                     return (
                       <IonItemSliding>
-                        <IonItem>
+                        <IonItem lines="inset">
                           <IonLabel>{task.title}</IonLabel>
                           <IonCheckbox
                             onIonChange={() => taskComplete(task)}
@@ -86,7 +86,7 @@ const TaskList: React.FC = () => {
                   if (task.completed === true) {
                     return (
                       <IonItemSliding>
-                        <IonItem>
+                        <IonItem lines="inset">
                           <IonLabel>{task.title}</IonLabel>
                           <IonCheckbox
                             onIonChange={() => taskIncomplete(task)}
