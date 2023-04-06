@@ -1,5 +1,6 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonAlert, IonIcon } from "@ionic/react";
 import sword from './sword.svg'
+import triforce from './triforce.svg'
 import { useContext } from "react";
 import TaskContext from "../contexts/TaskContext";
 import TaskList from "../components/TaskList";
