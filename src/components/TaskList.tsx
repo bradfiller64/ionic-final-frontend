@@ -4,7 +4,7 @@ import { useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
 
 const TaskList: React.FC = () => {
-  const { addTask, updateTask, deleteTask } = useContext(TaskContext);
+  const { updateTask, deleteTask } = useContext(TaskContext);
 
   const taskComplete = (task: any) => {
     updateTask(task.taskId, { title: task.title, completed: true })
@@ -29,21 +29,6 @@ const TaskList: React.FC = () => {
         console.log(error);
       });
   };
-
-  // const handleAddTask = () => {
-  //   setShowPrompt(true);
-  // }
-
-  // const handlePromptSubmit = () => {
-  //   addTask({ title: '', completed: false })
-  //     .then(() => {
-  //       setShowPrompt(false);
-  //       setNewTaskName("");
-  //     })
-  //     .catch((error: any) => {
-  //       console.log(error);
-  //     });
-  // }
 
 
   return (

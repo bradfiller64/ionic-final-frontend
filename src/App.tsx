@@ -2,7 +2,7 @@ import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
 import { IonApp, IonRouterOutlet, setupIonicReact } from '@ionic/react';
 import { IonReactRouter } from '@ionic/react-router';
-import TaskList from './components/TaskList';
+import Home from './pages/Home';
 import { TaskProvider } from './contexts/TaskProvider';
 
 
@@ -35,7 +35,7 @@ const App: React.FC = () => (
       <IonReactRouter>
         <IonRouterOutlet>
           <Route exact path="/home">
-            <TaskList />
+            <Home />
           </Route>
           <Route exact path="/">
             <Redirect to="/home" />

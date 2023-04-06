@@ -3,7 +3,7 @@ import { useContext } from "react";
 import TaskContext from "../contexts/TaskContext";
 import TaskList from "../components/TaskList";
 
-const AddButton: React.FC = () => {
+const Home: React.FC = () => {
   const [presentAlert] = useIonAlert();
   let { addTask } = useContext(TaskContext);
 
@@ -40,10 +40,12 @@ const AddButton: React.FC = () => {
       </IonHeader>
       <IonContent fullscreen>
         <TaskList></TaskList>
-        <IonButton onClick={createTask} expand="block" color="danger">
+        <IonButton onClick={createTask} expand="block" color="success">
           Add Task
         </IonButton>
       </IonContent>
     </IonPage>
   );
 };
+
+export default Home;
