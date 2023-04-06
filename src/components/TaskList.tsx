@@ -1,5 +1,5 @@
 import { IonCheckbox, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions, IonItemSliding, IonLabel, IonList, IonListHeader, } from '@ionic/react';
-import { trash } from 'ionicons/icons';
+import bomb from './bomb.svg'
 import { useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
 import './TaskList.css'
@@ -60,7 +60,7 @@ const TaskList: React.FC = () => {
                             onClick={() => slideToDelete(task.taskId)}
                             color="danger"
                           >
-                            <IonIcon slot="icon-only" icon={trash}></IonIcon>
+                            <IonIcon slot="icon-only" icon={bomb}></IonIcon>
                           </IonItemOption>
                         </IonItemOptions>
                       </IonItemSliding>
@@ -99,7 +99,7 @@ const TaskList: React.FC = () => {
                             onClick={() => slideToDelete(task.taskId)}
                             color="danger"
                           >
-                            <IonIcon slot="icon-only" icon={trash}></IonIcon>
+                            <IonIcon slot="icon-only" icon={bomb}></IonIcon>
                           </IonItemOption>
                         </IonItemOptions>
                       </IonItemSliding>

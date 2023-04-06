@@ -1,5 +1,5 @@
 import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonAlert, IonIcon } from "@ionic/react";
-import { add } from 'ionicons/icons';
+import sword from './sword.svg'
 import { useContext } from "react";
 import TaskContext from "../contexts/TaskContext";
 import TaskList from "../components/TaskList";
@@ -36,14 +36,14 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="new">
+        <IonToolbar color="new" >
           <IonTitle class="ion-text-center">Quest Objectives</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <TaskList></TaskList>
-        <IonButton onClick={createTask} color="success">
-          <IonIcon icon={add} size="large"></IonIcon>
+        <IonButton onClick={createTask} color="new">
+          <IonIcon icon={sword} slot="icon-only" size="large"></IonIcon>
         </IonButton>
       </IonContent>
     </IonPage>
