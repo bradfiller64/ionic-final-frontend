@@ -34,7 +34,7 @@ const Home: React.FC = () => {
   return (
     <IonPage>
       <IonHeader>
-        <IonToolbar color="primary">
+        <IonToolbar color="new">
           <IonTitle>Quest Objectives</IonTitle>
         </IonToolbar>
       </IonHeader>
