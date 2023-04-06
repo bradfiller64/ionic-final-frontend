@@ -1,7 +1,9 @@
-import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonAlert } from "@ionic/react";
+import { IonButton, IonContent, IonHeader, IonPage, IonTitle, IonToolbar, useIonAlert, IonIcon } from "@ionic/react";
+import { add } from 'ionicons/icons';
 import { useContext } from "react";
 import TaskContext from "../contexts/TaskContext";
 import TaskList from "../components/TaskList";
+import './Home.css'
 
 const Home: React.FC = () => {
   const [presentAlert] = useIonAlert();
@@ -14,7 +16,7 @@ const Home: React.FC = () => {
         {
           text: 'Add',
           handler: (alertData: { task: any }) => {
-            addTask({ Title: alertData.task, Completed: false })
+            addTask({ title: alertData.task, Completed: false })
               .then(() => { })
               .catch((error: any) => {
                 console.log(error);
@@ -35,13 +37,13 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="new">
-          <IonTitle>Quest Objectives</IonTitle>
+          <IonTitle class="ion-text-center">Quest Objectives</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
         <TaskList></TaskList>
-        <IonButton onClick={createTask} expand="block" color="success">
-          Add Task
+        <IonButton onClick={createTask} color="success">
+          <IonIcon icon={add} size="large"></IonIcon>
         </IonButton>
       </IonContent>
     </IonPage>

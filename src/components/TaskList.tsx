@@ -2,6 +2,7 @@ import { IonCheckbox, IonHeader, IonIcon, IonItem, IonItemOption, IonItemOptions
 import { trash } from 'ionicons/icons';
 import { useContext } from 'react';
 import TaskContext from '../contexts/TaskContext';
+import './TaskList.css'
 
 const TaskList: React.FC = () => {
   const { updateTask, deleteTask } = useContext(TaskContext);
@@ -38,8 +39,8 @@ const TaskList: React.FC = () => {
           {({ task }) => {
             return (
               <IonList key={task.taskId}>
-                <IonListHeader color="warning">
-                  <IonLabel color="light" className="ion-margin">
+                <IonListHeader color="success">
+                  <IonLabel id='incomplete' className="ion-margin">
                     Incomplete
                   </IonLabel>
                 </IonListHeader>
@@ -51,7 +52,7 @@ const TaskList: React.FC = () => {
                           <IonLabel>{task.title}</IonLabel>
                           <IonCheckbox
                             onIonChange={() => taskComplete(task)}
-                            slot="start"
+                            slot="end" color="success"
                           ></IonCheckbox>
                         </IonItem>
                         <IonItemOptions side="end">
@@ -77,8 +78,8 @@ const TaskList: React.FC = () => {
             return (
               <IonList key={task.taskId}>
                 <IonListHeader color="success">
-                  <IonLabel color="light" className="ion-margin">
-                    Complete
+                  <IonLabel id='completed' className="ion-margin">
+                    Completed
                   </IonLabel>
                 </IonListHeader>
                 {task.map((task: any) => {
@@ -90,7 +91,7 @@ const TaskList: React.FC = () => {
                           <IonCheckbox
                             onIonChange={() => taskIncomplete(task)}
                             checked={true}
-                            slot="start"
+                            slot="end" color="success"
                           ></IonCheckbox>
                         </IonItem>
                         <IonItemOptions side="end">
