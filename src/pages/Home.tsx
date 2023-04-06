@@ -35,7 +35,7 @@ const Home: React.FC = () => {
     <IonPage>
       <IonHeader>
         <IonToolbar color="primary">
-          <IonTitle>Task List</IonTitle>
+          <IonTitle>Quest Objectives</IonTitle>
         </IonToolbar>
       </IonHeader>
       <IonContent fullscreen>
