@@ -34,9 +34,6 @@ const TaskList: React.FC = () => {
   return (
     <div>
       <div>
-        <IonHeader>
-          <IonLabel>Link's To-Do List</IonLabel>
-        </IonHeader>
         <TaskContext.Consumer>
           {({ task }) => {
             return (
